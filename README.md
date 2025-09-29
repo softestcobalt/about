@@ -2,6 +2,9 @@
 
 ## project snapshot
 
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f557188a-7720-495d-a351-2c600ce76ce1" />
+
+
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                      hey, i'm bohdan                        │
