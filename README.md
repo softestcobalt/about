@@ -1,5 +1,7 @@
 # cobalt — single-screen personal card
 
+[Available here](https://softestcobalt.github.io/about/)
+
 ## project snapshot
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/f557188a-7720-495d-a351-2c600ce76ce1" />
