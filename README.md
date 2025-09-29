@@ -15,7 +15,7 @@
 
 ┌─────────────────────────────────────────────────────────────┐
 │ about                                                       │
-│  you can reach me at softestcobalt@outlook.com … contacts…  │
+│  you can reach me on contacts page…                          │
 │  back home            ·····································  │
 └─────────────────────────────────────────────────────────────┘
 
