@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cobalt</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <main class="pages">
+        <section id="home" class="page page--home">
+            <div class="page__content container">
+                <h2>hey, i'm bohdan</h2>
+                <p>i'm 17 and learning to build clean, thoughtful web pages with simple ideas and focused layouts.</p>
+                <a class="link" href="#about">learn more about me</a>
+                <a class="btn" href="#contact">get in touch</a>
+            </div>
+        </section>
+
+        <section id="about" class="page page--about">
+            <div class="page__content container">
+                <h3>about</h3>
+                <p>i enjoy front-end work because it mixes detail and emotion. right now i'm practicing html and css every day to keep my layouts light and consistent.</p>
+                <p class="emphasis">you can reach me on the <a href="#contact">contacts page</a>.</p>
+                <a class="btn btn--back" href="#home">back home</a>
+            </div>
+        </section>
+
+        <section id="contact" class="page page--contact">
+            <div class="page__content container">
+                <h3>contacts</h3>
+                <ul class="contact-list">
+                    <li>email - <a href="mailto:softestcobalt@outlook.com">softestcobalt@outlook.com</a></li>
+                    <li>github - <a href="https://github.com/softestcobalt" target="_blank" rel="noopener">github.com/softestcobalt</a></li>
+                    <li>telegram - <a href="https://t.me/hardestbed" target="_blank" rel="noopener">t.me/hardestbed</a></li>
+                </ul>
+                <a class="btn btn--back" href="#home">back home</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        if (!window.location.hash) {
+            window.location.hash = '#home';
+        }
+    </script>
+</body>
+</html>
