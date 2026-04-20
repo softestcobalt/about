@@ -1,4 +1,5 @@
-<img width="16" height="16" alt="cobalt" src="https://github.com/user-attachments/assets/c3330fcf-b785-4826-bd12-0fbe879346c3" /> cobalt — single-screen personal card
+
+ cobalt — single-screen personal card
 
 [available here](https://hardestbed.dev/)
 
