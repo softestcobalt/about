@@ -1,12 +1,8 @@
-<img width="16" height="16" alt="cobalt" src="https://github.com/user-attachments/assets/fb92d8da-61cf-4819-a04c-b8250c6e7d89" /> cobalt — одностраничная персональная карточка
+cobalt — одностраничная персональная карточка
 
 [доступна здесь](https://hardestbed.dev/)
 
 [english](./README.md) | русский
-
-## обзор проекта
-
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/a046d20e-af3e-437f-ace9-75db881c0060" />
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
