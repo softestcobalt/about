@@ -1,13 +1,8 @@
-
- cobalt — single-screen personal card
+cobalt — single-screen personal card
 
 [available here](https://hardestbed.dev/)
 
 english | [русский](./README_ru.md)
-
-## project snapshot
-
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/69fc2766-b3d3-435e-ac7c-37c00ca5b8db" />
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
