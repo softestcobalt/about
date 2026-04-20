@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>cobalt</title>
+    <link href="cobalt.ico" rel="icon" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body data-theme="dark" data-language="en">
+    <main class="pages">
+        <section id="home" class="page page--home is-active">
+            <div class="page__content container">
+                <h2 data-i18n="home.heading">hey, i'm bohdan</h2>
+                <p data-i18n="home.subheading">i'm 17 and learning to build clean, thoughtful web pages with simple ideas and focused layouts.</p>
+                <a class="link" href="#about" data-i18n="home.learn" data-nav>learn more about me</a>
+                <a class="btn" href="#contact" data-i18n="home.contact" data-nav>get in touch</a>
+                <a class="btn btn--portfolio" href="#portfolio" data-i18n="home.portfolio" data-nav>portfolio</a>
+                <a class="btn" href="https://hardestbed.studio/" target="_blank" rel="noopener" data-i18n="home.latest">my latest project</a>
+                <div class="controls">
+                    <button class="control-toggle control-toggle--language" type="button" data-language-toggle aria-label="Switch language to Russian">
+                        ru
+                    </button>
+                    <button class="control-toggle control-toggle--theme" type="button" data-theme-toggle aria-label="Switch to light theme">
+                        light
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="page page--about">
+            <div class="page__content container">
+                <h3 data-i18n="about.heading">about</h3>
+                <p data-i18n="about.description">i enjoy front-end work because it mixes detail and emotion. right now i'm practicing html and css every day to keep my layouts light and consistent.</p>
+                <p class="emphasis" data-i18n="about.emphasis" data-i18n-html>you can reach me on the <a data-nav href="#contact">contacts page</a>.</p>
+                <a class="btn btn--back" href="#home" data-i18n="shared.back" data-nav>back home</a>
+            </div>
+        </section>
+
+        <section id="contact" class="page page--contact">
+            <div class="page__content container">
+                <h3 data-i18n="contact.heading">contacts</h3>
+                <ul class="contact-list">
+                    <li data-i18n="contact.email" data-i18n-html>email - <a href="mailto:hi@hardestbed.dev">hi@hardestbed.dev</a></li>
+                    <li data-i18n="contact.github" data-i18n-html>github - <a href="https://github.com/softestcobalt" target="_blank" rel="noopener">github.com/softestcobalt</a></li>
+                    <li data-i18n="contact.telegram" data-i18n-html>telegram - <a href="https://t.me/hardestbed" target="_blank" rel="noopener">t.me/hardestbed</a></li>
+                </ul>
+                <a class="btn btn--back" href="#home" data-i18n="shared.back" data-nav>back home</a>
+            </div>
+        </section>
+
+        <section id="portfolio" class="page page--portfolio">
+            <div class="page__content container">
+                <h3 data-i18n="portfolio.heading">portfolio</h3>
+                <div class="gallery">
+                    <div class="gallery__viewport">
+                        <img class="gallery__image" src="1.png" alt="Project screenshot 1">
+                    </div>
+                    <div class="gallery__controls">
+                        <button class="gallery__btn gallery__btn--prev" type="button" data-gallery-prev aria-label="Previous image">←</button>
+                        <span class="gallery__counter" data-gallery-counter>1 / 4</span>
+                        <button class="gallery__btn gallery__btn--next" type="button" data-gallery-next aria-label="Next image">→</button>
+                    </div>
+                    <p class="gallery__caption" data-gallery-caption>дизайн баннеров для форума "Adobe Creative Cloud"</p>
+                </div>
+                <a class="btn btn--back" href="#home" data-i18n="shared.back" data-nav>back home</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        (function () {
+            const body = document.body;
+            const htmlEl = document.documentElement;
+            const themeToggles = Array.from(document.querySelectorAll('[data-theme-toggle]'));
+            const languageToggles = Array.from(document.querySelectorAll('[data-language-toggle]'));
+            const storageKey = 'cobalt-preferred-theme';
+            const languageStorageKey = 'cobalt-preferred-language';
+            const i18nElements = document.querySelectorAll('[data-i18n]');
+            const sections = Array.from(document.querySelectorAll('.page'));
+            let activePage = sections.find((section) => section.classList.contains('is-active')) || sections[0];
+
+            const safeStorage = (() => {
+                try {
+                    const testKey = '__theme_test__';
+                    localStorage.setItem(testKey, testKey);
+                    localStorage.removeItem(testKey);
+                    return localStorage;
+                } catch (error) {
+                    return null;
+                }
+            })();
+
+            const galleryCaptions = {
+                en: [
+                    'banner design for the "Adobe Creative Cloud" forum',
+                    'banner design for the "Google Gemini" forum',
+                    'banner design for the "ChatGPT" forum',
+                    'banner for my design services'
+                ],
+                ru: [
+                    'дизайн баннеров для форума "Adobe Creative Cloud"',
+                    'дизайн баннеров для форума "Google Gemini"',
+                    'дизайн баннеров для форума "ChatGPT"',
+                    'баннер для услуг по дизайну от меня'
+                ]
+            };
+            let galleryIndex = 0;
+
+            const translationMap = {
+                en: {
+                    'home.heading': "hey, i'm bohdan",
+                    'home.subheading': "i'm 17 and learning to build clean, thoughtful web pages with simple ideas and focused layouts.",
+                    'home.learn': 'learn more about me',
+                    'home.contact': 'get in touch',
+                    'home.portfolio': 'portfolio',
+                    'home.latest': 'my latest project',
+                    'portfolio.heading': 'portfolio',
+                    'about.heading': 'about',
+                    'about.description': "i enjoy front-end work because it mixes detail and emotion. right now i'm practicing html and css every day to keep my layouts light and consistent.",
+                    'about.emphasis': 'you can reach me on the <a data-nav href="#contact">contacts page</a>.',
+                    'shared.back': 'back home',
+                    'contact.heading': 'contacts',
+                    'contact.email': 'email - <a href="mailto:hi@hardestbed.dev">hi@hardestbed.dev</a>',
+                    'contact.github': 'github - <a href="https://github.com/softestcobalt" target="_blank" rel="noopener">github.com/softestcobalt</a>',
+                    'contact.telegram': 'telegram - <a href="https://t.me/hardestbed" target="_blank" rel="noopener">t.me/hardestbed</a>'
+                },
+                ru: {
+                    'home.heading': 'привет, я богдан',
+                    'home.subheading': 'мне 17 лет, я учусь создавать чистые и продуманные веб-страницы с простыми идеями и сфокусированными макетами.',
+                    'home.learn': 'узнать больше обо мне',
+                    'home.contact': 'написать мне',
+                    'home.portfolio': 'портфолио',
+                    'home.latest': 'мой последний проект',
+                    'portfolio.heading': 'портфолио',
+                    'about.heading': 'обо мне',
+                    'about.description': 'мне нравится фронтенд, потому что он соединяет внимание к деталям и эмоции. сейчас я каждый день практикую html и css, чтобы делать лёгкие и цельные макеты.',
+                    'about.emphasis': 'связаться можно на <a data-nav href="#contact">странице контактов</a>.',
+                    'shared.back': 'вернуться домой',
+                    'contact.heading': 'контакты',
+                    'contact.email': 'почта — <a href="mailto:hi@hardestbed.dev">hi@hardestbed.dev</a>',
+                    'contact.github': 'github — <a href="https://github.com/softestcobalt" target="_blank" rel="noopener">github.com/softestcobalt</a>',
+                    'contact.telegram': 'телеграм — <a href="https://t.me/hardestbed" target="_blank" rel="noopener">t.me/hardestbed</a>'
+                }
+            };
+
+            const themeToggleLabels = {
+                en: {
+                    light: 'light',
+                    dark: 'dark',
+                    toLight: 'Switch to light theme',
+                    toDark: 'Switch to dark theme'
+                },
+                ru: {
+                    light: 'светлая',
+                    dark: 'тёмная',
+                    toLight: 'Переключить на светлую тему',
+                    toDark: 'Переключить на тёмную тему'
+                }
+            };
+
+            const languageToggleLabels = {
+                en: {
+                    nextButton: 'ru',
+                    ariaLabel: 'Switch language to Russian'
+                },
+                ru: {
+                    nextButton: 'en',
+                    ariaLabel: 'Переключить язык на английский'
+                }
+            };
+
+            const showPage = (targetId) => {
+                const nextPage = document.getElementById(targetId);
+                if (!nextPage || nextPage === activePage) {
+                    return;
+                }
+                if (activePage) {
+                    activePage.classList.remove('is-active');
+                }
+                nextPage.classList.add('is-active');
+                activePage = nextPage;
+
+                if (typeof history.replaceState === 'function') {
+                    history.replaceState(null, '', window.location.pathname + window.location.search);
+                }
+            };
+
+            const handleNavClick = (event) => {
+                const href = event.currentTarget.getAttribute('href') || '';
+                if (!href.startsWith('#')) {
+                    return;
+                }
+                event.preventDefault();
+                showPage(href.slice(1));
+            };
+
+            const bindNavigation = () => {
+                document.querySelectorAll('[data-nav]').forEach((link) => {
+                    link.removeEventListener('click', handleNavClick);
+                    link.addEventListener('click', handleNavClick);
+                });
+            };
+
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+            const resolveTheme = () => {
+                const stored = safeStorage?.getItem(storageKey);
+                if (stored === 'light' || stored === 'dark') {
+                    return stored;
+                }
+                return prefersDark.matches ? 'dark' : 'light';
+            };
+
+            const resolveLanguage = () => {
+                const stored = safeStorage?.getItem(languageStorageKey);
+                if (stored === 'en' || stored === 'ru') {
+                    return stored;
+                }
+                return 'en';
+            };
+
+            let currentTheme = resolveTheme();
+            let currentLanguage = resolveLanguage();
+
+            const updateThemeToggleLabels = () => {
+                if (!themeToggles.length) {
+                    return;
+                }
+                const labels = themeToggleLabels[currentLanguage] || themeToggleLabels.en;
+                const nextTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                themeToggles.forEach((toggle) => {
+                    toggle.textContent = labels[nextTheme];
+                    toggle.setAttribute('aria-label', currentTheme === 'dark' ? labels.toLight : labels.toDark);
+                });
+            };
+
+            const updateLanguageToggleLabels = () => {
+                if (!languageToggles.length) {
+                    return;
+                }
+                const labels = languageToggleLabels[currentLanguage] || languageToggleLabels.en;
+                languageToggles.forEach((toggle) => {
+                    toggle.textContent = labels.nextButton;
+                    toggle.setAttribute('aria-label', labels.ariaLabel);
+                });
+            };
+
+            const applyTheme = (theme) => {
+                currentTheme = theme;
+                body.setAttribute('data-theme', theme);
+                updateThemeToggleLabels();
+            };
+
+            const applyLanguage = (language) => {
+                currentLanguage = language;
+                htmlEl.setAttribute('lang', language);
+                body.setAttribute('data-language', language);
+                const dictionary = translationMap[language] || translationMap.en;
+                i18nElements.forEach((element) => {
+                    const key = element.getAttribute('data-i18n');
+                    const value = dictionary[key];
+                    if (!value) {
+                        return;
+                    }
+                    if (element.hasAttribute('data-i18n-html')) {
+                        element.innerHTML = value;
+                    } else {
+                        element.textContent = value;
+                    }
+                });
+                updateLanguageToggleLabels();
+                bindNavigation();
+                updateThemeToggleLabels();
+                const captionEl = document.querySelector('[data-gallery-caption]');
+                if (captionEl) {
+                    const captions = galleryCaptions[language] || galleryCaptions.en;
+                    captionEl.textContent = captions[galleryIndex] || '';
+                }
+            };
+
+            applyLanguage(currentLanguage);
+            applyTheme(currentTheme);
+
+            themeToggles.forEach((toggle) => {
+                toggle.addEventListener('click', () => {
+                    currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                    applyTheme(currentTheme);
+                    safeStorage?.setItem(storageKey, currentTheme);
+                });
+            });
+
+            if (!safeStorage?.getItem(storageKey)) {
+                prefersDark.addEventListener('change', (event) => {
+                    if (safeStorage?.getItem(storageKey)) {
+                        return;
+                    }
+                    applyTheme(event.matches ? 'dark' : 'light');
+                });
+            }
+
+            languageToggles.forEach((toggle) => {
+                toggle.addEventListener('click', () => {
+                    const nextLanguage = currentLanguage === 'en' ? 'ru' : 'en';
+                    applyLanguage(nextLanguage);
+                    safeStorage?.setItem(languageStorageKey, nextLanguage);
+                });
+            });
+
+            const galleryImages = ['1.png', '2.png', '3.jpeg', '4.jpeg'];
+            const galleryImg = document.querySelector('.gallery__image');
+            const galleryViewport = document.querySelector('.gallery__viewport');
+            const galleryCounter = document.querySelector('[data-gallery-counter]');
+            const galleryCaption = document.querySelector('[data-gallery-caption]');
+            const prevBtn = document.querySelector('[data-gallery-prev]');
+            const nextBtn = document.querySelector('[data-gallery-next]');
+            let galleryBusy = false;
+
+            const updateGallery = () => {
+                if (!galleryImg || !galleryViewport || galleryBusy) return;
+                galleryBusy = true;
+
+                galleryImg.style.opacity = '0';
+
+                const preload = new Image();
+                preload.src = galleryImages[galleryIndex];
+                preload.onload = () => {
+                    const vpWidth = galleryViewport.offsetWidth;
+                    const ratio = preload.naturalHeight / preload.naturalWidth;
+                    const newHeight = Math.round(vpWidth * ratio);
+
+                    galleryViewport.style.height = galleryViewport.offsetHeight + 'px';
+                    requestAnimationFrame(() => {
+                        galleryViewport.style.height = newHeight + 'px';
+                    });
+
+                    setTimeout(() => {
+                        galleryImg.src = preload.src;
+                        galleryImg.alt = 'Project screenshot ' + (galleryIndex + 1);
+                        galleryImg.style.opacity = '1';
+                        setTimeout(() => {
+                            galleryViewport.style.height = '';
+                            galleryBusy = false;
+                        }, 250);
+                    }, 350);
+                };
+                preload.onerror = () => { galleryBusy = false; };
+
+                if (galleryCounter) {
+                    galleryCounter.textContent = (galleryIndex + 1) + ' / ' + galleryImages.length;
+                }
+                if (galleryCaption) {
+                    galleryCaption.style.opacity = '0';
+                    setTimeout(() => {
+                        const captions = galleryCaptions[currentLanguage] || galleryCaptions.en;
+                        galleryCaption.textContent = captions[galleryIndex] || '';
+                        galleryCaption.style.opacity = '1';
+                    }, 200);
+                }
+            };
+
+            if (prevBtn) {
+                prevBtn.addEventListener('click', () => {
+                    galleryIndex = (galleryIndex - 1 + galleryImages.length) % galleryImages.length;
+                    updateGallery();
+                });
+            }
+            if (nextBtn) {
+                nextBtn.addEventListener('click', () => {
+                    galleryIndex = (galleryIndex + 1) % galleryImages.length;
+                    updateGallery();
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
